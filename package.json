@@ -1,0 +1,19 @@
+{
+  "name": "israeli_address_autocomplete",
+  "version": "1.0.0",
+  "description": "An autocompletion interface for Israeli cities' and streets' names.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomer-g200/israeli_address_autocomplete.git"
+  },
+  "author": "Tomer Gil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomer-g200/israeli_address_autocomplete/issues"
+  },
+  "homepage": "https://github.com/tomer-g200/israeli_address_autocomplete#readme"
+}
