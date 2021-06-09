@@ -101,7 +101,17 @@ const searchIsraelPost = async function(autoComplete) {
 
     try {
         await page.type("input#City", autoComplete);
-
+    } catch {
+        try {
+            await page.click("#recaptcha-anchor > div.recaptcha-checkbox-checkmark");
+            await page.click("#recaptcha-anchor > div.recaptcha-checkbox-checkmark");
+            // await page.click("body > div.container > div:nth-child(2) > div.captcha-mid > form > center > input");
+        } catch {
+            console.log("Used random user-agent? " + IS_RANDOM_USER_AGENT);
+            console.log("Used referer header? " + IS_REFERER_HEADER);
+            return "Weird, city input wasn't found. " + parseInt(Math.random() * 100 + 1).toString();
+        }
+    } finally {
         await page.waitForSelector("#ui-id-1 > li");
 
         const autoCompleteResults = await page.$$eval('ul#ui-id-1 > li > div', results => {
@@ -122,10 +132,6 @@ const searchIsraelPost = async function(autoComplete) {
         console.log("Results:\n" + autoCompleteResults);
 
         return autoCompleteResults;
-    } catch {
-        console.log("Used random user-agent? " + IS_RANDOM_USER_AGENT);
-        console.log("Used referer header? " + IS_REFERER_HEADER);
-        return "Weird, city input wasn't found. " + parseInt(Math.random() * 100 + 1).toString();
     }
 };
 
