@@ -99,39 +99,53 @@ const searchIsraelPost = async function(autoComplete) {
     await page.goto(LOCATE_ZIPCODE_URL);
     await page.screenshot({path: `example${newestFile_number}.png`});
 
+    var isCityInputFound = true;
+    var isCapatchaFound = true;
     try {
         await page.type("input#City", autoComplete);
-    } catch {
-        try {
-            await page.click("#recaptcha-anchor > div.recaptcha-checkbox-checkmark");
-            await page.click("#recaptcha-anchor > div.recaptcha-checkbox-checkmark");
-            // await page.click("body > div.container > div:nth-child(2) > div.captcha-mid > form > center > input");
-        } catch {
-            console.log("Used random user-agent? " + IS_RANDOM_USER_AGENT);
-            console.log("Used referer header? " + IS_REFERER_HEADER);
-            return "Weird, city input wasn't found. " + parseInt(Math.random() * 100 + 1).toString();
-        }
+    } catch(e) {
+        console.error(e);
+        console.log("Used random user-agent? " + IS_RANDOM_USER_AGENT);
+        console.log("Used referer header? " + IS_REFERER_HEADER);
+        isCityInputFound = false;
     } finally {
-        await page.waitForSelector("#ui-id-1 > li");
+        if(!isCityInputFound) {
+            return "Weird, city input wasn't found. " + parseInt(Math.random() * 100 + 1).toString();
+        } else {
+            try {
+                await page.click("#recaptcha-anchor > div.recaptcha-checkbox-checkmark");
+                await page.click("#recaptcha-anchor > div.recaptcha-checkbox-checkmark");
+                // await page.click("body > div.container > div:nth-child(2) > div.captcha-mid > form > center > input");
+            } catch(e) {
+                console.error(e);
+                isCapatchaFound = false;
+            } finally {
+                if(!isCapatchaFound) {
+                    return "Capatcha wasn't found. " + parseInt(Math.random() * 100 + 1).toString();
+                } else {
+                    await page.waitForSelector("#ui-id-1 > li");
 
-        const autoCompleteResults = await page.$$eval('ul#ui-id-1 > li > div', results => {
-            // Array that holds all the cities' names.
-            let cities = [];
+                    const autoCompleteResults = await page.$$eval('ul#ui-id-1 > li > div', results => {
+                        // Array that holds all the cities' names.
+                        let cities = [];
 
-            // Iterates over all the results.
-            results.forEach(result => {
-                const city = result.innerText;
-                cities.push(city);
-            });
+                        // Iterates over all the results.
+                        results.forEach(result => {
+                            const city = result.innerText;
+                            cities.push(city);
+                        });
 
-            return cities;
-        });
+                        return cities;
+                    });
 
-        await browser.close();
+                    await browser.close();
 
-        console.log("Results:\n" + autoCompleteResults);
+                    console.log("Results:\n" + autoCompleteResults);
 
-        return autoCompleteResults;
+                    return autoCompleteResults;
+                }
+            }
+        }
     }
 };
 
