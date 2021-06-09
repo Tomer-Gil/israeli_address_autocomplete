@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/tomer-g200/israeli_address_autocomplete/issues"
   },
-  "homepage": "https://github.com/tomer-g200/israeli_address_autocomplete#readme"
+  "homepage": "https://github.com/tomer-g200/israeli_address_autocomplete#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
