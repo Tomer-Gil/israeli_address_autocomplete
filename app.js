@@ -2,8 +2,10 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-app.get('/autocomplete', async function (request, response){
-    const autoComplete = request.query.autocomplete;
+const searchIsraelPost = require('./searchIsraelPost');
+
+app.get('/auto_complete', async function (request, response){
+    const autoComplete = request.query.city;
 
     if(autoComplete !== null) {
         let results = await searchIsraelPost(autoComplete);
