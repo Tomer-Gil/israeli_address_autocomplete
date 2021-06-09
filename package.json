@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/tomer-g200/israeli_address_autocomplete#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "puppeteer": "^10.0.0"
   }
 }
