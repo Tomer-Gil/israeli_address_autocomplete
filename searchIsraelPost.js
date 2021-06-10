@@ -55,7 +55,7 @@ const searchIsraelPost = async function(autoComplete) {
         }
     }
 
-    // await page.setExtraHTTPHeaders(httpHeaders);
+    await page.setExtraHTTPHeaders(httpHeaders);
 
     await page.setRequestInterception(true);
     page.on("request", request => {
@@ -87,6 +87,7 @@ const searchIsraelPost = async function(autoComplete) {
         // Update cookie header
         let setCookieHeader = israelPostResponse._headers["set-cookie"].replace(/\/\n/g, "").replace(/PHPSESSID=[^;]*; /, "");
         httpHeaders.cookie = setCookieHeader;
+        await page.setExtraHTTPHeaders(httpHeaders);
         // Update httpHeaders.txt
         try {
             let isHeadersFileUpdated = await new Promise(function(resolve, reject) {
