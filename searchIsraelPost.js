@@ -62,21 +62,6 @@ const searchIsraelPost = async function(autoComplete) {
         }
     }
 
-    await page.setExtraHTTPHeaders({
-        // 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36 OPR/56.0.3051.52',
-        // 'user-agent': "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36",
-        // 'user-agent': 'Opera/9.80 (Windows NT 6.1; WOW64) Presto/2.12.388 Version/12.18',
-        'user-agent': randomUseragent.getRandom(),
-        // 'upgrade-insecure-requests': '1',
-        // "accept": "*/*",
-        // 'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3,application/javascript',
-        'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-        'accept-encoding': 'gzip, deflate, br',
-        // 'accept-language': 'en-US,en;q=0.9,en;q=0.8'
-        'accept-language': 'he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7',
-        // "referer": "https://israelpost.co.il/%D7%A9%D7%99%D7%A8%D7%95%D7%AA%D7%99%D7%9D/%D7%90%D7%99%D7%AA%D7%95%D7%A8-%D7%9E%D7%99%D7%A7%D7%95%D7%93/"
-    });
-
     await page.setExtraHTTPHeaders(httpHeaders);
 
     await page.setRequestInterception(true);
