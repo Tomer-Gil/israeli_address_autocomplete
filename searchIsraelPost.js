@@ -5,6 +5,7 @@ const path = require("path");
 const LOCATE_ZIPCODE_URL = "https://israelpost.co.il/%D7%A9%D7%99%D7%A8%D7%95%D7%AA%D7%99%D7%9D/%D7%90%D7%99%D7%AA%D7%95%D7%A8-%D7%9E%D7%99%D7%A7%D7%95%D7%93/";
 const IS_RANDOM_USER_AGENT = false;
 const IS_REFERER_HEADER = true;
+const IS_COOKIE_HEADER = false;
 
 const searchIsraelPost = async function(autoComplete) {
     let launchOptions = {
@@ -12,7 +13,7 @@ const searchIsraelPost = async function(autoComplete) {
             TZ: "UTC+3",
             ...process.env
         },
-        // headless: false
+        headless: false
     }
     const browser = await puppeteer.launch(launchOptions);
 
@@ -45,14 +46,21 @@ const searchIsraelPost = async function(autoComplete) {
         }
     }
 
-    // Just make sure I'm not trying to delete a key which is not found.
-        // Even though the delete operator will either way return true.
     if(!IS_REFERER_HEADER) {
+        // Just make sure I'm not trying to delete a key which is not found.
+            // Even though the delete operator will either way return true.
         if(httpHeaders.hasOwnProperty("referer")) {
             console.assert(delete httpHeaders.referer, "Error while trying to remove the Referer header.");
         }
     }
 
+    if(!IS_COOKIE_HEADER) {
+        // Just make sure I'm not trying to delete a key which is not found.
+            // Even though the delete operator will either way return true.
+        if(httpHeaders.hasOwnProperty("cookie")) {
+            console.assert(delete httpHeaders.cookie, "Error while trying to remove the Cookie header.");
+        }
+    }
 
     await page.setExtraHTTPHeaders({
         // 'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36 OPR/56.0.3051.52',
@@ -100,50 +108,47 @@ const searchIsraelPost = async function(autoComplete) {
     await page.screenshot({path: `example${newestFile_number}.png`});
 
     var isCityInputFound = true;
-    var isCapatchaFound = true;
     try {
-        await page.type("input#City", autoComplete);
+        await page.click("body > div.container > div:nth-child(2) > div.captcha-mid > form > center > input");
+        await page.click("#recaptcha-anchor > div.recaptcha-checkbox-checkmark");
+        // await page.click("#recaptcha-anchor > div.recaptcha-checkbox-checkmark");
+        console.log("Capatcha found.");
     } catch(e) {
         console.error(e);
-        console.log("Used random user-agent? " + IS_RANDOM_USER_AGENT);
-        console.log("Used referer header? " + IS_REFERER_HEADER);
-        isCityInputFound = false;
     } finally {
-        if(!isCityInputFound) {
-            return "Weird, city input wasn't found. " + parseInt(Math.random() * 100 + 1).toString();
-        } else {
-            try {
-                await page.click("#recaptcha-anchor > div.recaptcha-checkbox-checkmark");
-                await page.click("#recaptcha-anchor > div.recaptcha-checkbox-checkmark");
-                // await page.click("body > div.container > div:nth-child(2) > div.captcha-mid > form > center > input");
-            } catch(e) {
-                console.error(e);
-                isCapatchaFound = false;
-            } finally {
-                if(!isCapatchaFound) {
-                    return "Capatcha wasn't found. " + parseInt(Math.random() * 100 + 1).toString();
-                } else {
-                    await page.waitForSelector("#ui-id-1 > li");
+        try {
+            await page.type("input#City", autoComplete);
+            console.log("City input found.");
+        } catch(e) {
+            console.error(e);
+            isCityInputFound = false;
+        } finally {
+            console.log("Used random user-agent? " + IS_RANDOM_USER_AGENT);
+            console.log("Used referer header? " + IS_REFERER_HEADER);
+            console.log("Used cookie header? " + IS_COOKIE_HEADER);
+            if(!isCityInputFound) {
+                return "Weird, city input wasn't found. " + parseInt(Math.random() * 100 + 1).toString();
+            } else {
+                await page.waitForSelector("#ui-id-1 > li");
 
-                    const autoCompleteResults = await page.$$eval('ul#ui-id-1 > li > div', results => {
-                        // Array that holds all the cities' names.
-                        let cities = [];
+                const autoCompleteResults = await page.$$eval('ul#ui-id-1 > li > div', results => {
+                    // Array that holds all the cities' names.
+                    let cities = [];
 
-                        // Iterates over all the results.
-                        results.forEach(result => {
-                            const city = result.innerText;
-                            cities.push(city);
-                        });
-
-                        return cities;
+                    // Iterates over all the results.
+                    results.forEach(result => {
+                        const city = result.innerText;
+                        cities.push(city);
                     });
 
-                    await browser.close();
+                    return cities;
+                });
 
-                    console.log("Results:\n" + autoCompleteResults);
+                await browser.close();
 
-                    return autoCompleteResults;
-                }
+                console.log("Results:\n" + autoCompleteResults);
+
+                return autoCompleteResults;
             }
         }
     }
