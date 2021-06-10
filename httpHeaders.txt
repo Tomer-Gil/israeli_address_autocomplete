@@ -1,14 +1,1 @@
-accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
-accept-encoding: gzip, deflate, br
-accept-language: he-IL,he;q=0.9,en-US;q=0.8,en;q=0.7
-cache-control: max-age=0
-cookie: __uzma=db0594c9-2b0a-417c-a22a-ae4cdcad2706; __uzmb=1621868048; __uzme=4811; __RequestVerificationToken=vJzPJl7J4j0AYp5w_S5-M9K_IYPhYH6aDKJ24W1qlB6kUUCl8TjG62o3VhFPizspW6kYMQthPVT4We1ww-Guqsfo1rB_dsHXm37CENSNo-81; __ssds=3; _fbp=fb.2.1621868047084.413363713; _ga=GA1.3.1130429850.1621868047; __uzmbj3=1621868050; __uzmaj3=5815e423-d5d4-4d06-a8f8-fc9f3f1f2920; User1st.u1stIsActive=1; u1st-runSync=1; _gid=GA1.3.989466330.1623156249; __uzmc=9126819056212; __uzmd=1623194889; __ssuzjsr3=a9be0cd8e; __uzmcj3=4831613317921; __uzmdj3=1623194890; _gat_UA-88269527-1=1
-referer: http://validate.perfdrive.com/
-sec-ch-ua: " Not;A Brand";v="99", "Google Chrome";v="91", "Chromium";v="91"
-sec-ch-ua-mobile: ?0
-sec-fetch-dest: document
-sec-fetch-mode: navigate
-sec-fetch-site: cross-site
-sec-fetch-user: ?1
-upgrade-insecure-requests: 1
-user-agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.77 Safari/537.36
+{"accept":"text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9","accept-encoding":"gzip, deflate, br","accept-language":"he-il,he;q=0.9,en-us;q=0.8,en;q=0.7","cache-control":"max-age=0","cookie":"path=__uzma=e15e80e3-d392-4228-8971-e88723de9d87; expires=Tue, 07-Dec-2021 21:13:20 GMT; Max-Age=15552000; path=__uzmb=1623359600; expires=Tue, 07-Dec-2021 21:13:20 GMT; Max-Age=15552000; path=__uzmc=696341079877; expires=Tue, 07-Dec-2021 21:13:20 GMT; Max-Age=15552000; path=__uzmd=1623359600; expires=Tue, 07-Dec-2021 21:13:20 GMT; Max-Age=15552000; path=/","referer":"http://validate.perfdrive.com/","sec-ch-ua":"\" not;a brand\";v=\"99\", \"google chrome\";v=\"91\", \"chromium\";v=\"91\"","sec-ch-ua-mobile":"?0","sec-fetch-dest":"document","sec-fetch-mode":"navigate","sec-fetch-site":"cross-site","sec-fetch-user":"?1","upgrade-insecure-requests":"1","user-agent":"mozilla/5.0 (windows nt 6.1; win64; x64) applewebkit/537.36 (khtml, like gecko) chrome/91.0.4472.77 safari/537.36"}
