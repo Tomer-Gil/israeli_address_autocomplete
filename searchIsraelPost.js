@@ -96,7 +96,6 @@ const searchIsraelPost = async function(autoComplete) {
     try {
         await page.click("body > div.container > div:nth-child(2) > div.captcha-mid > form > center > input");
         await page.click("#recaptcha-anchor > div.recaptcha-checkbox-checkmark");
-        // await page.click("#recaptcha-anchor > div.recaptcha-checkbox-checkmark");
         console.log("Capatcha found.");
     } catch(e) {
         console.error(e);
